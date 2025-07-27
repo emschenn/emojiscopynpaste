@@ -8,40 +8,49 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 98%;
-    --foreground: 240 10% 15%;
+    /* Notion-like color palette */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 15%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 15%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 15%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 6% 10%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 283 100% 94%;
-    --accent-foreground: 262 83% 58%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 15%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    /* Emoji app specific colors */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(283 39% 53%));
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(240 5% 98%));
-    --gradient-hover: linear-gradient(135deg, hsl(262 83% 95%), hsl(283 100% 97%));
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 15%;
+
+    /* Notion-like design tokens */
+    --notion-gray-50: 0 0% 98%;
+    --notion-gray-100: 0 0% 96%;
+    --notion-gray-200: 0 0% 90%;
+    --notion-gray-300: 0 0% 83%;
+    --notion-gray-600: 0 0% 45%;
+    --notion-gray-900: 0 0% 15%;
+
+    --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.06);
+    --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+    --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
     
-    --shadow-card: 0 4px 12px -4px hsl(240 10% 15% / 0.08);
-    --shadow-hover: 0 8px 24px -8px hsl(262 83% 58% / 0.15);
-    
-    --emoji-size: 2rem;
-    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 6px;
+    --transition: all 0.15s ease;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
