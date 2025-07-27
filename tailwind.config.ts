@@ -21,6 +21,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
 				mono: ['SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace'],
+				'bitcount': ['Bitcount Prop Double', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

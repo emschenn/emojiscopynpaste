@@ -1,6 +1,6 @@
-import { useState, KeyboardEvent } from 'react';
-import { Plus, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, KeyboardEvent } from "react";
+import { Plus, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,74 +9,76 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Tag from '@/components/Tag';
-import { toast } from 'sonner';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Tag from "@/components/Tag";
+import { toast } from "sonner";
 
 interface AddEmojiDialogProps {
   onAdd: (emoji: string, description?: string, tags?: string[]) => void;
+  children?: React.ReactNode;
 }
 
-const AddEmojiDialog = ({ onAdd }: AddEmojiDialogProps) => {
+const AddEmojiDialog = ({ onAdd, children }: AddEmojiDialogProps) => {
   const [open, setOpen] = useState(false);
-  const [emoji, setEmoji] = useState('');
-  const [description, setDescription] = useState('');
+  const [emoji, setEmoji] = useState("");
+  const [description, setDescription] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!emoji.trim()) {
-      toast.error('Please enter an emoji');
+      toast.error("Please enter an emoji");
       return;
     }
 
-    onAdd(
-      emoji.trim(),
-      description.trim() || undefined,
-      tags
-    );
-    
+    onAdd(emoji.trim(), description.trim() || undefined, tags);
+
     // Reset form
-    setEmoji('');
-    setDescription('');
+    setEmoji("");
+    setDescription("");
     setTags([]);
-    setTagInput('');
+    setTagInput("");
     setOpen(false);
-    toast.success('Emoji added successfully!');
+    toast.success("Emoji added successfully!");
   };
 
   const handleTagKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && tagInput.trim()) {
+    if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
       const newTag = tagInput.trim().toLowerCase();
       if (!tags.includes(newTag)) {
         setTags([...tags, newTag]);
       }
-      setTagInput('');
+      setTagInput("");
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-primary hover:bg-primary/90 shadow-sm">
-          <Plus className="h-4 w-4 mr-2" />
-          Add Emoji
-        </Button>
+        {children || (
+          <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-sm">
+            <Plus className="h-4 w-4 mr-2" />
+            Add Emojis
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">Add New Emoji</DialogTitle>
+          <DialogTitle className="text-lg font-semibold">
+            Add New Emoji
+          </DialogTitle>
           <DialogDescription className="text-notion-gray-600">
-            Add a new emoji to your collection. Description and tags are optional.
+            Add a new emoji to your collection. Description and tags are
+            optional.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -93,10 +95,13 @@ const AddEmojiDialog = ({ onAdd }: AddEmojiDialogProps) => {
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="description" className="text-sm font-medium">
-              Description <span className="text-notion-gray-600 font-normal">(optional)</span>
+              Description{" "}
+              <span className="text-notion-gray-600 font-normal">
+                (optional)
+              </span>
             </Label>
             <Input
               id="description"
@@ -108,7 +113,10 @@ const AddEmojiDialog = ({ onAdd }: AddEmojiDialogProps) => {
 
           <div className="space-y-2">
             <Label htmlFor="tags" className="text-sm font-medium">
-              Tags <span className="text-notion-gray-600 font-normal">(optional)</span>
+              Tags{" "}
+              <span className="text-notion-gray-600 font-normal">
+                (optional)
+              </span>
             </Label>
             <Input
               id="tags"

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sparkles, Tag as TagIcon } from "lucide-react";
+import { Github, Heart, Pointer, Sparkles, Tag as TagIcon } from "lucide-react";
 import EmojiCard from "@/components/EmojiCard";
 import AddEmojiDialog from "@/components/AddEmojiDialog";
 import SearchBar from "@/components/SearchBar";
@@ -197,7 +197,7 @@ const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [showTags, setShowTags] = useState(true);
+  const [showTags, setShowTags] = useState(false);
 
   useEffect(() => {
     loadEmojis();
@@ -286,7 +286,9 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <Sparkles className="h-6 w-6 animate-spin text-primary mx-auto mb-3" />
+          <div className="h-6 w-6 animate-spin text-primary mx-auto mb-3">
+            ✨
+          </div>
           <p className="text-claude-gray-600 text-sm font-medium">
             Loading your emoji collection...
           </p>
@@ -297,27 +299,26 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-8 py-12 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 md:px-8 md:py-12 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-2xl font-medium text-foreground mb-2 tracking-tight">
-            Emoji Collection
+        <div className="text-center mb-4 md:mb-12 px-8">
+          <h1 className="text-4xl font-medium text-foreground mb-1 tracking-tight font-bitcount">
+            emojis copynpaste
           </h1>
           <p className="text-claude-gray-600 text-base max-w-xl mx-auto leading-relaxed">
-            Organize and copy your favorite emojis with tags and descriptions
+            collect all the emoji vibes and copy with one tap{" "}
+            <Pointer className="inline w-4 h-4" />
           </p>
         </div>
 
         {/* Controls */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 mb-10">
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-            <SearchBar
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder="Search emojis"
-            />
-          </div>
-          <div className="flex items-center gap-3">
+        <div className="flex flex-row items-center max-md:justify-center justify-between gap-4 mb-10">
+          <SearchBar
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="Search emojis"
+          />
+          <div className="hidden md:flex items-center gap-3">
             <Button
               variant="outline"
               size="sm"
@@ -334,8 +335,8 @@ const Index = () => {
         {/* Tag Filters */}
         {allTags.length > 0 && (
           <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              {allTags.slice(0, 12).map((tag) => (
+            <div className="flex  max-md:justify-center flex-wrap gap-1.5">
+              {allTags.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => {
@@ -346,7 +347,7 @@ const Index = () => {
                     }
                   }}
                   className={`
-                    px-3 py-1.5 text-sm font-medium rounded border transition-all duration-150
+                    px-2.5 py-1 text-xs font-medium rounded border transition-all duration-150
                     ${
                       selectedTags.includes(tag)
                         ? "bg-primary text-primary-foreground border-primary shadow-subtle"
@@ -380,6 +381,21 @@ const Index = () => {
                 showTags={showTags}
               />
             ))}
+            {/* Mobile Add Button Card */}
+            <div className="md:hidden">
+              <AddEmojiDialog onAdd={handleAddEmoji}>
+                <div className="group relative bg-card border border-dashed border-border rounded p-3 shadow-subtle hover:shadow-card transition-all duration-150 cursor-pointer hover:border-primary/50">
+                  <div className="flex flex-col items-center space-y-2">
+                    <div className="text-lg sm:text-xl text-claude-gray-400 group-hover:text-primary transition-colors">
+                      +
+                    </div>
+                    <p className="text-xs text-claude-gray-400 text-center leading-tight font-medium group-hover:text-claude-gray-700 transition-colors">
+                      Add Emojis
+                    </p>
+                  </div>
+                </div>
+              </AddEmojiDialog>
+            </div>
           </div>
         ) : (
           <div className="text-center py-20">
@@ -398,8 +414,19 @@ const Index = () => {
 
         {/* Footer */}
         <div className="text-center mt-20 pt-6 border-t border-border">
-          <p className="text-xs text-claude-gray-400 font-medium">
-            Swiss-inspired design • Click any emoji to copy
+          <p className="text-xs text-claude-gray-400 font-medium flex items-center justify-center gap-1">
+            <span className=" font-bitcount font-light text-claude-gray-800">
+              made with 🤍 for emoji lovers{" "}
+            </span>{" "}
+            •
+            <a
+              href="https://github.com/emschenn/emojiscopynpaste"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex hover:text-claude-gray-700 transition-colors"
+            >
+              view source code
+            </a>
           </p>
         </div>
       </div>

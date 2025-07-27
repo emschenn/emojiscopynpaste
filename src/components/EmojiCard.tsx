@@ -19,6 +19,7 @@ interface EmojiCardProps {
 
 const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const copyToClipboard = async () => {
     try {
@@ -43,7 +44,7 @@ const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
     >
       {/* Emoji Display */}
       <div className="flex flex-col items-center space-y-2">
-        <div className="text-3xl select-none">{emoji.emoji}</div>
+        <div className="text-lg sm:text-xl select-none">{emoji.emoji}</div>
         
         {/* Description */}
         {emoji.description && (
@@ -63,44 +64,42 @@ const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
       </div>
       
       {/* Actions Menu */}
-      {isHovered && (
-        <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-5 w-5 p-0 bg-card/90 backdrop-blur-sm hover:bg-claude-beige-100 border border-border rounded-sm"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <MoreHorizontal className="h-3 w-3" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-28">
-              <DropdownMenuItem
-                onClick={(e) => {
-                  e.stopPropagation();
-                  copyToClipboard();
-                }}
-                className="text-xs"
-              >
-                <Copy className="h-3 w-3 mr-2" />
-                Copy
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemove();
-                }}
-                className="text-xs text-destructive focus:text-destructive"
-              >
-                <Trash2 className="h-3 w-3 mr-2" />
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      )}
+      <div className={`absolute top-1.5 right-1.5 transition-opacity ${(isHovered || isMenuOpen) ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <DropdownMenu onOpenChange={setIsMenuOpen}>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="h-5 w-5 p-0 bg-card/90 backdrop-blur-sm hover:bg-claude-beige-100 border border-border rounded-sm"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MoreHorizontal className="h-3 w-3" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-28">
+            <DropdownMenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                copyToClipboard();
+              }}
+              className="text-xs"
+            >
+              <Copy className="h-3 w-3 mr-2" />
+              Copy
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRemove();
+              }}
+              className="text-xs text-destructive focus:text-destructive"
+            >
+              <Trash2 className="h-3 w-3 mr-2" />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 };
