@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+				mono: ['SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -52,13 +56,17 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				'notion-gray': {
-					50: 'hsl(var(--notion-gray-50))',
-					100: 'hsl(var(--notion-gray-100))',
-					200: 'hsl(var(--notion-gray-200))',
-					300: 'hsl(var(--notion-gray-300))',
-					600: 'hsl(var(--notion-gray-600))',
-					900: 'hsl(var(--notion-gray-900))'
+				'claude-beige': {
+					50: 'hsl(var(--claude-beige-50))',
+					100: 'hsl(var(--claude-beige-100))',
+					200: 'hsl(var(--claude-beige-200))',
+					300: 'hsl(var(--claude-beige-300))'
+				},
+				'claude-gray': {
+					400: 'hsl(var(--claude-gray-400))',
+					600: 'hsl(var(--claude-gray-600))',
+					800: 'hsl(var(--claude-gray-800))',
+					900: 'hsl(var(--claude-gray-900))'
 				}
 			},
 			borderRadius: {

@@ -14,9 +14,10 @@ import { EmojiItem } from '@/lib/supabase';
 interface EmojiCardProps {
   emoji: EmojiItem;
   onRemove: (id: string) => void;
+  showTags?: boolean;
 }
 
-const EmojiCard = ({ emoji, onRemove }: EmojiCardProps) => {
+const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const copyToClipboard = async () => {
@@ -35,58 +36,53 @@ const EmojiCard = ({ emoji, onRemove }: EmojiCardProps) => {
 
   return (
     <div
-      className="group relative bg-card border border-border rounded-lg p-4 shadow-subtle hover:shadow-card transition-all duration-150 cursor-pointer animate-fade-in"
+      className="group relative bg-card border border-border rounded p-3 shadow-subtle hover:shadow-card transition-all duration-150 cursor-pointer animate-fade-in"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={copyToClipboard}
     >
       {/* Emoji Display */}
-      <div className="flex flex-col items-center space-y-3">
-        <div className="text-4xl select-none">{emoji.emoji}</div>
+      <div className="flex flex-col items-center space-y-2">
+        <div className="text-3xl select-none">{emoji.emoji}</div>
         
         {/* Description */}
         {emoji.description && (
-          <p className="text-sm text-notion-gray-600 text-center leading-tight font-medium">
+          <p className="text-xs text-claude-gray-600 text-center leading-tight font-medium">
             {emoji.description}
           </p>
         )}
         
         {/* Tags */}
-        {emoji.tags && emoji.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 justify-center max-w-full">
-            {emoji.tags.slice(0, 3).map((tag) => (
+        {showTags && emoji.tags && emoji.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 justify-center max-w-full">
+            {emoji.tags.map((tag) => (
               <Tag key={tag} tag={tag} size="sm" />
             ))}
-            {emoji.tags.length > 3 && (
-              <span className="text-xs text-notion-gray-600 px-1">
-                +{emoji.tags.length - 3}
-              </span>
-            )}
           </div>
         )}
       </div>
       
       {/* Actions Menu */}
       {isHovered && (
-        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-6 w-6 p-0 bg-card/80 backdrop-blur-sm hover:bg-notion-gray-100 border border-notion-gray-200"
+                className="h-5 w-5 p-0 bg-card/90 backdrop-blur-sm hover:bg-claude-beige-100 border border-border rounded-sm"
                 onClick={(e) => e.stopPropagation()}
               >
                 <MoreHorizontal className="h-3 w-3" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-32">
+            <DropdownMenuContent align="end" className="w-28">
               <DropdownMenuItem
                 onClick={(e) => {
                   e.stopPropagation();
                   copyToClipboard();
                 }}
-                className="text-sm"
+                className="text-xs"
               >
                 <Copy className="h-3 w-3 mr-2" />
                 Copy
@@ -96,7 +92,7 @@ const EmojiCard = ({ emoji, onRemove }: EmojiCardProps) => {
                   e.stopPropagation();
                   handleRemove();
                 }}
-                className="text-sm text-destructive focus:text-destructive"
+                className="text-xs text-destructive focus:text-destructive"
               >
                 <Trash2 className="h-3 w-3 mr-2" />
                 Delete
