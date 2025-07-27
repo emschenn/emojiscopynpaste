@@ -65,7 +65,10 @@ const AddEmojiDialog = ({ onAdd, children }: AddEmojiDialogProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children || (
-          <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-sm">
+          <Button
+            size="sm"
+            className="bg-primary hover:bg-primary/90 shadow-sm"
+          >
             <Plus className="h-4 w-4 mr-2" />
             Add Emojis
           </Button>
@@ -73,8 +76,8 @@ const AddEmojiDialog = ({ onAdd, children }: AddEmojiDialogProps) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">
-            Add New Emoji
+          <DialogTitle className=" text-2xl font-bitcount text-center font-medium">
+            add new emojis
           </DialogTitle>
           <DialogDescription className="text-notion-gray-600">
             Add a new emoji to your collection. Description and tags are
@@ -142,7 +145,7 @@ const AddEmojiDialog = ({ onAdd, children }: AddEmojiDialogProps) => {
 
           <DialogFooter>
             <Button type="submit" className="bg-primary hover:bg-primary/90">
-              Add Emoji
+              Add Emojis
             </Button>
           </DialogFooter>
         </form>
