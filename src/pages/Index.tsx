@@ -11,18 +11,59 @@ interface EmojiItem {
 }
 
 const DEFAULT_EMOJIS: EmojiItem[] = [
-  { id: '1', emoji: '😀', description: 'Grinning Face' },
-  { id: '2', emoji: '😍', description: 'Heart Eyes' },
-  { id: '3', emoji: '🤔', description: 'Thinking Face' },
-  { id: '4', emoji: '😂', description: 'Laughing' },
-  { id: '5', emoji: '🎉', description: 'Party' },
-  { id: '6', emoji: '👍', description: 'Thumbs Up' },
-  { id: '7', emoji: ':)', description: 'Happy' },
-  { id: '8', emoji: ':D', description: 'Very Happy' },
-  { id: '9', emoji: ':(', description: 'Sad' },
-  { id: '10', emoji: ':P', description: 'Tongue Out' },
-  { id: '11', emoji: ';)', description: 'Wink' },
-  { id: '12', emoji: '<3', description: 'Heart' },
+  // Travel & Places ✈️
+  { id: '1', emoji: '✈️', description: 'Airplane Travel' },
+  { id: '2', emoji: '🏖️', description: 'Beach Vacation' },
+  { id: '3', emoji: '🗼', description: 'Tokyo Tower' },
+  { id: '4', emoji: '🏛️', description: 'Classical Building' },
+  { id: '5', emoji: '🌸', description: 'Cherry Blossom' },
+  { id: '6', emoji: '🌺', description: 'Hibiscus Flower' },
+  { id: '7', emoji: '🌴', description: 'Palm Tree' },
+  { id: '8', emoji: '🏔️', description: 'Snow Mountain' },
+  
+  // Aesthetic Vibes ✨
+  { id: '9', emoji: '✨', description: 'Sparkles' },
+  { id: '10', emoji: '🌙', description: 'Crescent Moon' },
+  { id: '11', emoji: '⭐', description: 'Star' },
+  { id: '12', emoji: '💫', description: 'Dizzy Star' },
+  { id: '13', emoji: '🌟', description: 'Glowing Star' },
+  { id: '14', emoji: '💖', description: 'Sparkling Heart' },
+  { id: '15', emoji: '💕', description: 'Two Hearts' },
+  { id: '16', emoji: '🎀', description: 'Ribbon Bow' },
+  
+  // Food & Lifestyle 🍓
+  { id: '17', emoji: '🍓', description: 'Strawberry' },
+  { id: '18', emoji: '🥐', description: 'Croissant' },
+  { id: '19', emoji: '☕', description: 'Coffee' },
+  { id: '20', emoji: '🧋', description: 'Bubble Tea' },
+  { id: '21', emoji: '🍰', description: 'Cake Slice' },
+  { id: '22', emoji: '🌸', description: 'Sakura' },
+  { id: '23', emoji: '🦋', description: 'Butterfly' },
+  { id: '24', emoji: '🌈', description: 'Rainbow' },
+  
+  // Nature & Weather 🌸
+  { id: '25', emoji: '🌊', description: 'Ocean Wave' },
+  { id: '26', emoji: '☀️', description: 'Sun' },
+  { id: '27', emoji: '🌤️', description: 'Sun Behind Cloud' },
+  { id: '28', emoji: '🌙', description: 'Moon' },
+  { id: '29', emoji: '🌸', description: 'Pink Flowers' },
+  { id: '30', emoji: '🍃', description: 'Leaves' },
+  
+  // Fashion & Beauty 💄
+  { id: '31', emoji: '💄', description: 'Lipstick' },
+  { id: '32', emoji: '👗', description: 'Dress' },
+  { id: '33', emoji: '👠', description: 'High Heel' },
+  { id: '34', emoji: '💍', description: 'Ring' },
+  { id: '35', emoji: '💎', description: 'Diamond' },
+  { id: '36', emoji: '🌹', description: 'Red Rose' },
+  
+  // Camera & Social 📸
+  { id: '37', emoji: '📸', description: 'Camera Flash' },
+  { id: '38', emoji: '🎬', description: 'Movie Camera' },
+  { id: '39', emoji: '🎨', description: 'Artist Palette' },
+  { id: '40', emoji: '📚', description: 'Books' },
+  { id: '41', emoji: '🎵', description: 'Musical Note' },
+  { id: '42', emoji: '🎭', description: 'Theater Masks' },
 ];
 
 const Index = () => {
