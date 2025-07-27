@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { EmojiService, EmojiItem } from "@/lib/supabase";
 import { toast } from "sonner";
 
+const MAX_VISIBLE_TAGS = 12;
+
 const DEFAULT_EMOJIS: Omit<EmojiItem, "id" | "created_at" | "updated_at">[] = [
   // Travel & Places ✈️
   {
@@ -198,6 +200,7 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [showTags, setShowTags] = useState(false);
+  const [showAllTags, setShowAllTags] = useState(false);
 
   useEffect(() => {
     loadEmojis();
@@ -282,6 +285,18 @@ const Index = () => {
     new Set(emojis.flatMap((emoji) => emoji.tags))
   ).sort();
 
+  // Get randomized tags for display (mobile only)
+  const getMobileDisplayTags = () => {
+    if (allTags.length <= MAX_VISIBLE_TAGS || showAllTags) {
+      return allTags;
+    }
+    // Create a randomized subset of visible tags for mobile
+    const shuffled = [...allTags].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, MAX_VISIBLE_TAGS);
+  };
+
+  const mobileDisplayTags = getMobileDisplayTags();
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -335,7 +350,44 @@ const Index = () => {
         {/* Tag Filters */}
         {allTags.length > 0 && (
           <div className="mb-8">
-            <div className="flex  max-md:justify-center flex-wrap gap-1.5">
+            {/* Mobile view with show more/less functionality */}
+            <div className="md:hidden flex justify-center flex-wrap gap-1.5">
+              {mobileDisplayTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => {
+                    if (selectedTags.includes(tag)) {
+                      setSelectedTags(selectedTags.filter((t) => t !== tag));
+                    } else {
+                      setSelectedTags([...selectedTags, tag]);
+                    }
+                  }}
+                  className={`
+                    px-2.5 py-1 text-xs font-medium rounded border transition-all duration-150
+                    ${
+                      selectedTags.includes(tag)
+                        ? "bg-primary text-primary-foreground border-primary shadow-subtle"
+                        : "bg-card hover:bg-claude-beige-100 border-border text-claude-gray-800"
+                    }
+                  `}
+                >
+                  {tag}
+                </button>
+              ))}
+              {allTags.length > MAX_VISIBLE_TAGS && (
+                <button
+                  onClick={() => setShowAllTags(!showAllTags)}
+                  className="px-2.5 py-1 text-xs font-medium rounded border border-dashed border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-150"
+                >
+                  {showAllTags
+                    ? "Show Less"
+                    : `Show More (${allTags.length - MAX_VISIBLE_TAGS}+)`}
+                </button>
+              )}
+            </div>
+            
+            {/* Desktop view with all tags */}
+            <div className="hidden md:flex flex-wrap gap-1.5">
               {allTags.map((tag) => (
                 <button
                   key={tag}
@@ -373,14 +425,6 @@ const Index = () => {
         {/* Emoji Grid */}
         {filteredEmojis.length > 0 ? (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3">
-            {filteredEmojis.map((emoji) => (
-              <EmojiCard
-                key={emoji.id}
-                emoji={emoji}
-                onRemove={handleRemoveEmoji}
-                showTags={showTags}
-              />
-            ))}
             {/* Mobile Add Button Card */}
             <div className="md:hidden">
               <AddEmojiDialog onAdd={handleAddEmoji}>
@@ -396,6 +440,14 @@ const Index = () => {
                 </div>
               </AddEmojiDialog>
             </div>
+            {filteredEmojis.map((emoji) => (
+              <EmojiCard
+                key={emoji.id}
+                emoji={emoji}
+                onRemove={handleRemoveEmoji}
+                showTags={showTags}
+              />
+            ))}
           </div>
         ) : (
           <div className="text-center py-20">

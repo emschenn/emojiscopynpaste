@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { Copy, Trash2, MoreHorizontal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Copy, Trash2, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import Tag from '@/components/Tag';
-import { toast } from 'sonner';
-import { EmojiItem } from '@/lib/supabase';
+} from "@/components/ui/dropdown-menu";
+import Tag from "@/components/Tag";
+import { toast } from "sonner";
+import { EmojiItem } from "@/lib/supabase";
 
 interface EmojiCardProps {
   emoji: EmojiItem;
@@ -26,8 +26,8 @@ const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
       await navigator.clipboard.writeText(emoji.emoji);
       toast.success(`Copied ${emoji.emoji}`);
     } catch (err) {
-      console.error('Failed to copy:', err);
-      toast.error('Failed to copy');
+      console.error("Failed to copy:", err);
+      toast.error("Failed to copy");
     }
   };
 
@@ -44,15 +44,21 @@ const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
     >
       {/* Emoji Display */}
       <div className="flex flex-col items-center space-y-2">
-        <div className="text-lg sm:text-xl select-none">{emoji.emoji}</div>
-        
+        <div
+          className={`select-none ${
+            emoji.emoji.length > 3 ? "text-sm sm:text-xl" : "text-lg sm:text-xl"
+          }`}
+        >
+          {emoji.emoji}
+        </div>
+
         {/* Description */}
         {emoji.description && (
           <p className="text-xs text-claude-gray-600 text-center leading-tight font-medium">
             {emoji.description}
           </p>
         )}
-        
+
         {/* Tags */}
         {showTags && emoji.tags && emoji.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 justify-center max-w-full">
@@ -62,9 +68,15 @@ const EmojiCard = ({ emoji, onRemove, showTags = true }: EmojiCardProps) => {
           </div>
         )}
       </div>
-      
+
       {/* Actions Menu */}
-      <div className={`absolute top-1.5 right-1.5 transition-opacity ${(isHovered || isMenuOpen) ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div
+        className={`absolute top-1.5 right-1.5 transition-opacity ${
+          isHovered || isMenuOpen
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
         <DropdownMenu onOpenChange={setIsMenuOpen}>
           <DropdownMenuTrigger asChild>
             <Button
