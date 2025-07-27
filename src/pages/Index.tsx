@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import EmojiCard from '@/components/EmojiCard';
 import AddEmojiDialog from '@/components/AddEmojiDialog';
 import SearchBar from '@/components/SearchBar';
